@@ -15,7 +15,7 @@ function App() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/upload",
+        "https://ai-research-assistant-37l3.onrender.com/upload",
         formData
       );
 
