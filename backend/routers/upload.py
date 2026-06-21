@@ -1,25 +1,20 @@
 from services.gemini_service import summarize_text
-#from database.mongodb import documents
 from fastapi import APIRouter, UploadFile, File
-import shutil
-
 from services.pdf_service import extract_text
+import shutil
+import os
 
 router = APIRouter()
 
-
 @router.post("/upload")
-async def upload_pdf(
-    file: UploadFile = File(...)
-):
+async def upload_pdf(file: UploadFile = File(...)):
+
+    os.makedirs("uploads", exist_ok=True)
 
     file_path = f"uploads/{file.filename}"
 
     with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(
-            file.file,
-            buffer
-        )
+        shutil.copyfileobj(file.file, buffer)
 
     print("PDF saved")
 
@@ -30,15 +25,6 @@ async def upload_pdf(
     summary = summarize_text(text)
 
     print("Summary generated")
-
-    # documents.insert_one(
-    #     {
-    #         "filename": file.filename,
-    #         "summary": summary
-    #     }
-    # )
-
-    print("Saved to MongoDB")
 
     return {
         "filename": file.filename,
