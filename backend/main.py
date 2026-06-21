@@ -9,7 +9,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
-        "https://your-vercel-app.vercel.app"
+        "https://ai-research-assistant-plum.vercel.app/"
     ],
     allow_credentials=True,
     allow_methods=["*"],
